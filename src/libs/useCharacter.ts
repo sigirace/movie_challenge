@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { characterDetail, listCharacters } from '../api';
-import { CharacterDetailResponse, CharactersResponse } from '../types';
+import { characterDetail, comicDetailByCharacter, listCharacters } from '../api';
+import { CharacterDetailResponse, CharactersResponse, ComicsResponse } from '../types';
 import { useParams } from 'react-router-dom';
 
 export const useCharacterList = () => {
@@ -14,12 +14,25 @@ export const useCharacterList = () => {
 
 export const useCharacterDetail = () => {
   const { characterId } = useParams<string>();
-
-  const { data, isLoading, isError } = useQuery<CharacterDetailResponse>({
+  const {
+    data: characterData,
+    isLoading: isCharacterLoading,
+    isError: isCharacterError,
+  } = useQuery<CharacterDetailResponse>({
     queryKey: ['characters', characterId],
     queryFn: characterDetail,
     enabled: !!characterId,
   });
 
-  return { data, isLoading, isError };
+  const {
+    data: comicsData,
+    isLoading: isComicsLoading,
+    isError: isComicsError,
+  } = useQuery<ComicsResponse>({
+    queryKey: ['characters', characterId, 'comics'],
+    queryFn: comicDetailByCharacter,
+    enabled: !!characterData,
+  });
+
+  return { characterData, comicsData };
 };

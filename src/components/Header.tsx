@@ -1,4 +1,5 @@
 import { Box, HStack, Text } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   return (
@@ -13,16 +14,18 @@ export default function Header() {
       bg="black"
       color="white"
     >
-      <Text as="h1" fontSize="3xl" fontWeight="bold" color="red.600">
-        Marvel Universe
-      </Text>
+      <Link to="/">
+        <Text as="h1" fontSize="3xl" fontWeight="bold" color="red.600">
+          Marvel Universe
+        </Text>
+      </Link>
       <HStack as="nav" display={{ base: 'none', md: 'flex' }} spacing={8}>
         <Text as="a" _hover={{ color: 'red.600' }}>
           Movies
         </Text>
-        <Text as="a" _hover={{ color: 'red.600' }}>
-          Characters
-        </Text>
+        <Link to="/characters">
+          <Text _hover={{ color: 'red.600' }}>Characters</Text>
+        </Link>
         <Text as="a" _hover={{ color: 'red.600' }}>
           News
         </Text>

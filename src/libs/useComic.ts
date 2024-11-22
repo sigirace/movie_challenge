@@ -15,13 +15,27 @@ export const useComicList = () => {
 export const useComicsDetail = () => {
   const { comicId } = useParams<string>();
 
-  const { data, isLoading, error } = useQuery<ComicDetailResponse>({
+  const {
+    data: comicData,
+    isLoading: isComicLoading,
+    error: isComicError,
+  } = useQuery<ComicDetailResponse>({
     queryKey: ['comics', comicId],
     queryFn: comicDetail,
     enabled: !!comicId,
   });
 
-  return { data, isLoading, error };
+  const {
+    data: characterData,
+    isLoading: isCharacterLoading,
+    error: isCharacterError,
+  } = useQuery<CharactersResponse>({
+    queryKey: ['comics', comicId, 'characters'],
+    queryFn: listComicCharacters,
+    enabled: !!comicData,
+  });
+
+  return { comicData, characterData };
 };
 
 export const useComicCharacters = () => {

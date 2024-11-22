@@ -2,20 +2,13 @@ import { Box, Button, Flex, Grid, HStack, Image, Link as ChakraLink, Text } from
 import { useComicList } from '../libs/useComic';
 import { FaHeart, FaPlayCircle, FaStar } from 'react-icons/fa';
 import { extractYear, removeYearInBrackets } from '../utils';
-import { keyframes } from '@emotion/react';
 import { Link } from 'react-router-dom';
-
-const moveAnimation = keyframes`
-  0% { transform: translateX(0); }
-  50% { transform: translateX(10px); }
-  100% { transform: translateX(0); }
-`;
 
 export default function Home() {
   const { data: comics, isLoading, isError } = useComicList();
 
   return (
-    <Box as="main" px={{ base: 4, md: 8 }} py={8} w="full" minH="100vh" bg="black" color="white">
+    <Box as="main" px={{ base: 4, md: 10 }} py={8} w="full" minH="100vh" bg="black" color="white">
       <Box as="section" mb={16}>
         <Box position="relative" h="500px" borderRadius="xl" overflow="hidden">
           <Image
@@ -88,6 +81,7 @@ export default function Home() {
                 borderRadius="lg"
                 overflow="hidden"
                 minW="300px"
+                m={2}
                 _hover={{
                   transform: 'scale(1.05)',
                   shadow: 'lg',
@@ -106,13 +100,13 @@ export default function Home() {
                   <Text noOfLines={1} as="h3" fontSize="xl" fontWeight="bold" mb={2}>
                     {removeYearInBrackets(movie.title)}
                   </Text>
-                  <Flex justify="space-between" align="center">
+                  <Box display="flex" justifyContent="space-between" alignItems="center">
                     <Text color="gray.400">{extractYear(movie.title)}</Text>
                     <HStack spacing={1} align="center">
                       <FaStar width={16} height={16} color="yellow.500" />
                       <Text>{5}</Text>
                     </HStack>
-                  </Flex>
+                  </Box>
                   <Button
                     mt={4}
                     w="full"
