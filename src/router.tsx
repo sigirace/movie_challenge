@@ -1,17 +1,37 @@
-import { createBrowserRouter } from "react-router-dom";
-import Root from "./components/Root";
-import Home from "./routes/Home";
-import NotFound from "./routes/NotFound";
+import { createBrowserRouter } from 'react-router-dom';
+import Root from './components/Root';
+import Home from './routes/Home';
+import NotFound from './routes/NotFound';
+import ComicDetail from './routes/ComicDetail';
+import Characters from './routes/Characters';
+import CharacterDetail from './routes/CharacterDetail';
+import ComicCharacters from './routes/ComicCharacters';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Root />,
     errorElement: <NotFound />,
     children: [
       {
-        path: "",
+        path: '',
         element: <Home />,
+      },
+      {
+        path: '/comics/:comicId',
+        element: <ComicDetail />,
+      },
+      {
+        path: '/characters',
+        element: <Characters />,
+      },
+      {
+        path: '/characters/:characterId',
+        element: <CharacterDetail />,
+      },
+      {
+        path: '/comics/:comicId/characters',
+        element: <ComicCharacters />,
       },
     ],
   },
